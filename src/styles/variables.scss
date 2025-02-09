@@ -1,0 +1,76 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #1677ff
+    ),
+    'success': (
+      'base': #52c41a
+    ),
+    'warning': (
+      'base': #faad14
+    ),
+    'danger': (
+      'base': #ff4d4f
+    ),
+    'error': (
+      'base': #ff4d4f
+    )
+  ),
+  $text-color: (
+    'primary': rgba(0, 0, 0, 0.92),
+    'regular': rgba(0, 0, 0, 0.88),
+    'secondary': rgba(0, 0, 0, 0.6),
+    'placeholder': rgba(0, 0, 0, 0.36),
+    'disabled': rgba(0, 0, 0, 0.28)
+  ),
+  $border-color: (
+    '': #d9d9d9,
+    'light': #e8e8e8,
+    'lighter': #e8e8e8,
+    'extra-light': #f0f0f0
+  ),
+  $fill-color: (
+    '': #f0f0f0,
+    'light': #f5f5f5,
+    'lighter': #f7f7f7,
+    'extra-light': #fafafa
+  ),
+  $bg-color: (
+    '': #ffffff,
+    'page': #f0f2f5,
+    'overlay': #ffffff
+  ),
+  $box-shadow: (
+    '': (
+      0 2px 10px 2px rgba(0, 0, 0, 0.1)
+    ),
+    'light': (
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05)
+    ),
+    'lighter': (
+      0 1px 2px 0 rgba(0, 0, 0, 0.03),
+      0 1px 6px -1px rgba(0, 0, 0, 0.02),
+      0 2px 4px 0 rgba(0, 0, 0, 0.02)
+    ),
+    'dark': (
+      0 6px 16px 0 rgba(0, 0, 0, 0.08),
+      0 3px 6px -4px rgba(0, 0, 0, 0.12),
+      0 9px 28px 8px rgba(0, 0, 0, 0.05)
+    )
+  ),
+  $overlay-color: (
+    '': rgba(0, 0, 0, 0.8),
+    'light': rgba(0, 0, 0, 0.6),
+    'lighter': rgba(0, 0, 0, 0.45)
+  ),
+  $mask-color: (
+    '': rgba(255, 255, 255, 0.4),
+    'extra-light': rgba(255, 255, 255, 0.6)
+  ),
+  $border-radius: (
+    'base': 3px,
+    'small': 2px
+  )
+);
