@@ -1,0 +1,65 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-notification {
+  @include set-ele-var('notification', $ele);
+}
+
+body .el-notification {
+  width: eleVar('notification', 'width');
+  max-width: calc(100vw - 48px);
+  padding: eleVar('notification', 'padding');
+  border: eleVar('notification', 'border');
+  border-radius: eleVar('notification', 'radius');
+  box-shadow: eleVar('notification', 'shadow');
+
+  .el-notification__icon {
+    width: eleVar('notification', 'icon-size');
+    height: eleVar('notification', 'icon-size');
+    font-size: eleVar('notification', 'icon-size');
+    margin: eleVar('notification', 'icon-margin');
+  }
+}
+
+.el-notification .el-notification__icon.el-notification--info {
+  color: elVar('color-primary');
+}
+
+.el-notification .el-notification__group {
+  margin: 0;
+
+  .el-notification__closeBtn {
+    top: 0;
+    right: 0;
+    width: eleVar('notification', 'close-size');
+    height: eleVar('notification', 'close-size');
+    line-height: eleVar('notification', 'close-size');
+    color: eleVar('notification', 'close-color');
+    font-size: eleVar('notification', 'close-font-size');
+    margin: eleVar('notification', 'close-margin');
+    border-radius: eleVar('notification', 'close-radius');
+    transition: (color $transition-base, background-color $transition-base);
+
+    &:hover {
+      color: eleVar('notification', 'close-hover-color');
+      background: eleVar('notification', 'close-hover-bg');
+    }
+  }
+
+  .el-notification__title {
+    color: eleVar('notification', 'title-color');
+    font-size: eleVar('notification', 'title-size');
+    font-weight: eleVar('notification', 'title-font-weight');
+    line-height: eleVar('notification', 'title-line-height');
+    padding: eleVar('notification', 'title-padding');
+    box-sizing: border-box;
+  }
+
+  .el-notification__content {
+    color: eleVar('notification', 'color');
+    font-size: eleVar('notification', 'size');
+    margin-top: eleVar('notification', 'body-margin');
+    line-height: inherit;
+    text-align: left;
+  }
+}

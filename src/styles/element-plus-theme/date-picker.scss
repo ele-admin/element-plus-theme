@@ -1,0 +1,854 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-date-picker,
+.el-date-range-picker {
+  @include set-ele-var('datepicker', $ele);
+}
+
+.el-time-panel,
+.el-time-range-picker {
+  @include set-ele-var('timepicker', $ele);
+}
+
+.el-date-picker {
+  // header
+  .el-date-picker__header {
+    display: flex;
+    align-items: center;
+    height: eleVar('datepicker', 'header-height');
+    line-height: eleVar('datepicker', 'header-height');
+    border-bottom: eleVar('datepicker', 'header-border');
+    padding: eleVar('datepicker', 'header-padding');
+    box-sizing: border-box;
+    margin: 0;
+  }
+
+  .el-date-picker__header-label {
+    flex-shrink: 0;
+    color: eleVar('datepicker', 'label-color');
+    font-size: eleVar('datepicker', 'label-size');
+    font-weight: eleVar('datepicker', 'label-weight');
+    line-height: inherit;
+    padding: 0;
+    box-sizing: border-box;
+    transition: color $transition-base;
+
+    & + .el-date-picker__header-label {
+      margin-left: eleVar('datepicker', 'label-space');
+    }
+
+    &:hover {
+      color: eleVar('datepicker', 'label-hover-color');
+    }
+  }
+
+  .el-date-picker__prev-btn,
+  .el-date-picker__next-btn {
+    flex: 1;
+    float: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .el-date-picker__next-btn {
+    justify-content: flex-end;
+  }
+
+  .el-picker-panel__icon-btn {
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    font-size: eleVar('datepicker', 'icon-size');
+    color: eleVar('datepicker', 'icon-color');
+    transition: color $transition-base;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .el-icon {
+      cursor: inherit;
+    }
+
+    & + .el-picker-panel__icon-btn {
+      margin-left: eleVar('datepicker', 'icon-space');
+    }
+
+    &:hover {
+      color: eleVar('datepicker', 'icon-hover-color');
+    }
+  }
+
+  // body
+  .el-picker-panel__content {
+    margin: 0;
+    padding: eleVar('datepicker', 'body-padding');
+    box-sizing: border-box;
+  }
+
+  .el-picker-panel__body .el-picker-panel__content {
+    width: 100%;
+  }
+
+  .el-year-table td.current:not(.disabled) > div,
+  .el-month-table td.current:not(.disabled) > div {
+    border-radius: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+// 内容宽度
+.el-picker__popper .el-date-picker,
+.el-date-range-picker .el-date-range-picker__content,
+.el-date-picker.has-sidebar .el-picker-panel__body {
+  width: eleVar('datepicker', 'body-width');
+  flex-shrink: 0;
+}
+
+.el-picker__popper .el-date-picker.has-sidebar,
+.el-picker__popper .el-date-range-picker,
+.el-picker__popper .el-date-range-picker.has-sidebar,
+.el-picker__popper .el-date-picker.has-sidebar.has-time {
+  width: auto;
+}
+
+.el-picker__popper .el-date-range-picker .el-picker-panel__body {
+  min-width: auto;
+}
+
+// sidebar
+.el-date-picker,
+.el-date-range-picker {
+  .el-picker-panel__sidebar {
+    flex-shrink: 1;
+    background: none;
+    width: eleVar('datepicker', 'sidebar-width');
+    padding: eleVar('datepicker', 'sidebar-padding');
+    border-right: eleVar('datepicker', 'sidebar-border');
+    box-sizing: border-box;
+    position: relative;
+    top: auto;
+    bottom: auto;
+
+    & + .el-picker-panel__body {
+      margin: 0;
+    }
+  }
+
+  // 快捷选项
+  .el-picker-panel__shortcut {
+    height: eleVar('datepicker', 'shortcut-height');
+    line-height: eleVar('datepicker', 'shortcut-height');
+    color: eleVar('datepicker', 'shortcut-color');
+    font-size: eleVar('datepicker', 'shortcut-size');
+    padding: eleVar('datepicker', 'shortcut-padding');
+    border-radius: eleVar('datepicker', 'shortcut-radius');
+    transition: (color $transition-base, background-color $transition-base);
+    box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+
+    &:hover {
+      color: eleVar('datepicker', 'shortcut-hover-color');
+      background: eleVar('datepicker', 'shortcut-hover-bg');
+    }
+
+    & + .el-picker-panel__shortcut {
+      margin-top: eleVar('datepicker', 'shortcut-margin');
+    }
+  }
+
+  &.has-sidebar .el-picker-panel__body-wrapper {
+    display: flex;
+  }
+}
+
+// footer
+.el-date-picker,
+.el-date-range-picker {
+  .el-picker-panel__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: eleVar('datepicker', 'footer-padding');
+    border-top: eleVar('datepicker', 'footer-border');
+    box-sizing: border-box;
+    background: none;
+  }
+}
+
+// 内容表格
+.el-date-picker,
+.el-date-range-picker {
+  .el-date-table,
+  .el-month-table,
+  .el-year-table {
+    color: eleVar('datepicker', 'color');
+    font-size: eleVar('datepicker', 'font-size');
+    margin: 0;
+  }
+
+  // 日期表格
+  .el-date-table {
+    th {
+      padding: 0;
+      border: none;
+      color: eleVar('datepicker', 'color');
+    }
+
+    td {
+      .el-date-table-cell .el-date-table-cell__text {
+        border-radius: eleVar('datepicker', 'cell-radius');
+        transition: (
+          color $transition-base,
+          background-color $transition-base,
+          border-color $transition-base
+        );
+        box-sizing: border-box;
+      }
+
+      &.today .el-date-table-cell__text {
+        color: eleVar('datepicker', 'today-color');
+        font-weight: eleVar('datepicker', 'today-weight');
+        border: eleVar('datepicker', 'today-border');
+      }
+
+      &.prev-month,
+      &.next-month {
+        color: eleVar('datepicker', 'off-color');
+      }
+
+      &.available:hover .el-date-table-cell__text {
+        color: eleVar('datepicker', 'hover-color');
+        background: eleVar('datepicker', 'hover-bg');
+      }
+
+      &.current:not(.disabled) .el-date-table-cell__text {
+        color: eleVar('datepicker', 'active-color');
+        background: eleVar('datepicker', 'active-bg');
+      }
+
+      &.disabled {
+        .el-date-table-cell {
+          background: eleVar('datepicker', 'disabled-bg');
+        }
+
+        .el-date-table-cell__text {
+          color: eleVar('datepicker', 'disabled-color');
+          background: none;
+        }
+      }
+    }
+  }
+
+  // 年/月表格
+  .el-year-table td,
+  .el-month-table td {
+    width: auto;
+
+    .el-date-table-cell__text {
+      color: eleVar('datepicker', 'color');
+      width: eleVar('datepicker', 'year-width');
+      height: eleVar('datepicker', 'year-height');
+      line-height: eleVar('datepicker', 'year-height');
+      border-radius: eleVar('datepicker', 'year-radius');
+      transition: (
+        color $transition-base,
+        background-color $transition-base,
+        border-color $transition-base
+      );
+      box-sizing: border-box;
+      position: static;
+      left: auto;
+      transform: none;
+    }
+
+    &.today .el-date-table-cell__text {
+      color: eleVar('datepicker', 'today-color');
+      font-weight: eleVar('datepicker', 'today-weight');
+      border: eleVar('datepicker', 'today-border');
+    }
+
+    .el-date-table-cell__text:hover {
+      color: eleVar('datepicker', 'hover-color');
+      background: eleVar('datepicker', 'hover-bg');
+    }
+
+    &.current:not(.disabled) .el-date-table-cell__text {
+      color: eleVar('datepicker', 'active-color');
+      background: eleVar('datepicker', 'active-bg');
+    }
+  }
+
+  .el-year-table td {
+    padding: eleVar('datepicker', 'year-padding');
+
+    & > div {
+      height: auto;
+      padding: eleVar('datepicker', 'year-space');
+      transition: (
+        background-color $transition-base,
+        border-color $transition-base
+      );
+    }
+
+    &.disabled {
+      & > div {
+        background: eleVar('datepicker', 'disabled-bg');
+      }
+
+      .el-date-table-cell__text {
+        color: eleVar('datepicker', 'disabled-color');
+        background: none;
+      }
+    }
+  }
+
+  .el-month-table td {
+    padding: eleVar('datepicker', 'month-padding');
+
+    & > div {
+      height: auto;
+      padding: eleVar('datepicker', 'month-space');
+      transition: (
+        background-color $transition-base,
+        border-color $transition-base
+      );
+    }
+
+    &.disabled {
+      & > div {
+        background: eleVar('datepicker', 'disabled-bg');
+      }
+
+      .el-date-table-cell__text {
+        color: eleVar('datepicker', 'disabled-color');
+        background: none;
+      }
+    }
+  }
+}
+
+// 范围选择
+.el-date-range-picker {
+  .el-date-range-picker__content .el-date-range-picker__header {
+    display: flex;
+    align-items: center;
+    height: eleVar('datepicker', 'header-height');
+    line-height: eleVar('datepicker', 'header-height');
+    border-bottom: eleVar('datepicker', 'header-border');
+    padding: eleVar('datepicker', 'header-padding');
+    box-sizing: border-box;
+
+    & > div {
+      flex: 1;
+      margin: 0;
+      color: eleVar('datepicker', 'label-color');
+      font-size: eleVar('datepicker', 'label-size');
+      font-weight: eleVar('datepicker', 'label-weight');
+      box-sizing: border-box;
+    }
+
+    .el-picker-panel__icon-btn {
+      margin: 0;
+      padding: 0;
+      line-height: inherit;
+      font-size: eleVar('datepicker', 'icon-size');
+      color: eleVar('datepicker', 'icon-color');
+      transition: color $transition-base;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      float: none;
+
+      &.arrow-left {
+        margin-left: eleVar('datepicker', 'icon-space');
+      }
+
+      &.arrow-right {
+        order: 3;
+        margin-right: eleVar('datepicker', 'icon-space');
+      }
+
+      &.d-arrow-right {
+        order: 4;
+      }
+
+      .el-icon {
+        cursor: inherit;
+      }
+
+      &:hover {
+        color: eleVar('datepicker', 'icon-hover-color');
+      }
+
+      &.is-disabled {
+        color: eleVar('datepicker', 'icon-disabled-color');
+      }
+    }
+  }
+
+  .el-picker-panel__body {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .el-date-range-picker__content {
+    padding: 0;
+    border: none;
+    float: none;
+
+    table {
+      padding: eleVar('datepicker', 'body-padding');
+      box-sizing: border-box;
+    }
+
+    &.is-left {
+      border: none;
+
+      table {
+        box-shadow: 0.8px 0 0 0 eleVar('datepicker', 'inner-border');
+      }
+    }
+  }
+
+  .el-date-table td {
+    &.start-date .el-date-table-cell {
+      margin-left: eleVar('datepicker', 'end-margin');
+      border-top-left-radius: eleVar('datepicker', 'cell-radius');
+      border-bottom-left-radius: eleVar('datepicker', 'cell-radius');
+    }
+
+    &.end-date .el-date-table-cell {
+      margin-right: eleVar('datepicker', 'end-margin');
+      border-top-right-radius: eleVar('datepicker', 'cell-radius');
+      border-bottom-right-radius: eleVar('datepicker', 'cell-radius');
+    }
+
+    &.in-range .el-date-table-cell {
+      background: eleVar('datepicker', 'inrange-bg');
+
+      &:hover {
+        background: eleVar('datepicker', 'inrange-hover-bg');
+      }
+    }
+
+    &.in-range.available:hover .el-date-table-cell__text {
+      background: none;
+    }
+
+    &.in-range.available.start-date .el-date-table-cell__text,
+    &.in-range.available.end-date .el-date-table-cell__text {
+      color: eleVar('datepicker', 'active-color');
+      background: eleVar('datepicker', 'active-bg');
+    }
+  }
+
+  // 月范围
+  .el-month-table td,
+  .el-year-table td {
+    &.start-date > div {
+      border-top-left-radius: eleVar('datepicker', 'year-radius');
+      border-bottom-left-radius: eleVar('datepicker', 'year-radius');
+      margin-left: 0;
+    }
+
+    &.end-date > div {
+      border-top-right-radius: eleVar('datepicker', 'year-radius');
+      border-bottom-right-radius: eleVar('datepicker', 'year-radius');
+      margin-right: 0;
+    }
+
+    &.in-range > div {
+      background: eleVar('datepicker', 'inrange-bg');
+
+      &:hover {
+        background: eleVar('datepicker', 'inrange-hover-bg');
+      }
+    }
+
+    &.in-range .el-date-table-cell__text:hover {
+      background: none;
+    }
+
+    &.in-range.start-date:not(.disabled) .el-date-table-cell__text,
+    &.in-range.end-date:not(.disabled) .el-date-table-cell__text {
+      color: eleVar('datepicker', 'active-color');
+      background: eleVar('datepicker', 'active-bg');
+    }
+  }
+
+  .el-month-table,
+  .el-year-table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+}
+
+// 周选择
+.el-date-table.is-week-mode {
+  td.start-date .el-date-table-cell,
+  tbody .el-date-table__row td:first-child .el-date-table-cell,
+  tbody .el-date-table__row:hover td:first-child .el-date-table-cell {
+    margin-left: eleVar('datepicker', 'end-margin');
+    border-top-left-radius: eleVar('datepicker', 'cell-radius');
+    border-bottom-left-radius: eleVar('datepicker', 'cell-radius');
+  }
+
+  td.end-date .el-date-table-cell,
+  tbody .el-date-table__row td:last-child .el-date-table-cell,
+  tbody .el-date-table__row:hover td:last-child .el-date-table-cell {
+    margin-right: eleVar('datepicker', 'end-margin');
+    border-top-right-radius: eleVar('datepicker', 'cell-radius');
+    border-bottom-right-radius: eleVar('datepicker', 'cell-radius');
+  }
+
+  .el-date-table__row:hover td .el-date-table-cell,
+  .el-date-table__row.current td .el-date-table-cell {
+    background: eleVar('datepicker', 'inrange-bg');
+  }
+
+  td.available:hover .el-date-table-cell__text {
+    color: eleVar('datepicker', 'color');
+    background: none;
+  }
+
+  .el-date-table__row.current td.start-date .el-date-table-cell__text,
+  .el-date-table__row.current td.end-date .el-date-table-cell__text {
+    color: eleVar('datepicker', 'active-color');
+    background: eleVar('datepicker', 'active-bg');
+  }
+}
+
+// 日期多选
+.el-date-picker .el-date-table td.selected .el-date-table-cell {
+  margin-left: eleVar('datepicker', 'end-margin');
+  margin-right: eleVar('datepicker', 'end-margin');
+  border-radius: eleVar('datepicker', 'cell-radius');
+  background: eleVar('datepicker', 'inrange-bg');
+
+  &:hover {
+    background: eleVar('datepicker', 'inrange-hover-bg');
+  }
+
+  .el-date-table-cell__text {
+    color: eleVar('datepicker', 'active-color');
+    background: eleVar('datepicker', 'active-bg');
+  }
+}
+
+// 日期时间选择
+.el-date-picker .el-date-picker__time-header,
+.el-date-range-picker .el-date-range-picker__time-header {
+  padding: 8px 5px;
+  display: flex;
+  align-items: center;
+}
+
+.el-date-picker__time-header .el-date-picker__editor-wrap,
+.el-date-range-picker__time-header .el-date-range-picker__time-picker-wrap {
+  flex: 1;
+  padding: 0 4px;
+  box-sizing: border-box;
+  display: block;
+
+  & > .el-input {
+    display: flex;
+  }
+}
+
+// 日期时间范围选择
+.el-date-range-picker.has-time .el-picker-panel__body {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.el-date-range-picker .el-date-range-picker__time-header {
+  grid-column-end: span 2;
+  width: calc(#{eleVar('datepicker', 'body-width')} * 2);
+}
+
+.el-date-range-picker__time-header > span {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+
+  & > .el-icon {
+    color: eleVar('datepicker', 'range-icon-color');
+    font-size: eleVar('datepicker', 'range-icon-size');
+  }
+}
+
+.el-date-range-picker__time-header .el-date-range-picker__editors-wrap {
+  flex: 1;
+}
+
+// 日期选择内时间气泡
+.el-popper .el-picker-panel .el-time-panel {
+  margin: 7px 0;
+  background: eleVar('popper', 'bg');
+  border: eleVar('popper', 'border');
+  border-radius: eleVar('popper', 'radius');
+  box-shadow: eleVar('popper', 'shadow');
+
+  &::after {
+    content: '';
+    width: eleVar('popper', 'arrow-size');
+    height: eleVar('popper', 'arrow-size');
+    background: eleVar('popper', 'arrow-bg');
+    border: eleVar('popper', 'border');
+    box-shadow: eleVar('popper', 'arrow-shadow');
+    border-bottom-color: transparent;
+    border-right-color: transparent;
+    border-top-left-radius: 2px;
+    transform: rotate(45deg);
+    box-sizing: border-box;
+    z-index: -1;
+    position: absolute;
+    top: eleVar('popper', 'arrow-offset');
+    left: 20px;
+  }
+
+  & > .el-time-panel__content {
+    background: inherit;
+    border-radius: inherit;
+  }
+}
+
+// 日期/时间选择气泡
+.el-popper .el-picker-panel,
+.el-popper .el-time-panel {
+  background: inherit;
+  border-radius: inherit;
+}
+
+/* TimePicker */
+.el-time-panel,
+.el-time-range-picker {
+  .el-time-panel__content {
+    &::before {
+      $h: eleVar('timepicker', 'item-height');
+      $s: eleVar('timepicker', 'line-padding');
+      padding: 0;
+      left: eleVar('timepicker', 'line-margin');
+      right: eleVar('timepicker', 'line-margin');
+      height: calc(#{$h} + #{$s} * 2);
+      margin: calc(0px - #{$h} / 2 - #{$s}) 0 0 0;
+      border-top: eleVar('timepicker', 'line');
+      border-bottom: eleVar('timepicker', 'line');
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  .el-time-spinner {
+    display: flex;
+
+    &.has-seconds .el-time-spinner__wrapper {
+      width: auto;
+    }
+  }
+
+  .el-time-spinner__wrapper {
+    flex: 1;
+    width: auto;
+    max-height: none;
+    height: eleVar('timepicker', 'height');
+  }
+
+  .el-time-spinner__list {
+    box-sizing: border-box;
+    padding: eleVar('timepicker', 'padding');
+    padding-bottom: 0;
+    padding-top: 0;
+
+    &::after,
+    &::before {
+      $h1: eleVar('timepicker', 'height');
+      $h2: eleVar('timepicker', 'item-height');
+      height: calc((#{$h1} - #{$h2}) / 2);
+    }
+  }
+
+  .el-time-spinner__item {
+    height: eleVar('timepicker', 'item-height');
+    line-height: eleVar('timepicker', 'item-height');
+    color: eleVar('timepicker', 'item-color');
+    font-size: eleVar('timepicker', 'item-size');
+    border-radius: eleVar('timepicker', 'item-radius');
+    transition: (color $transition-base, background-color $transition-base);
+
+    &:not(.is-disabled):not(.is-active):hover {
+      color: eleVar('timepicker', 'item-hover-color');
+      background: eleVar('timepicker', 'item-hover-bg');
+    }
+
+    &.is-active:not(.is-disabled) {
+      color: eleVar('timepicker', 'item-active-color');
+      background: eleVar('timepicker', 'item-active-bg');
+    }
+
+    &.is-disabled {
+      color: eleVar('timepicker', 'item-disabled-color');
+      background: eleVar('timepicker', 'item-disabled-bg');
+    }
+  }
+
+  // footer
+  .el-time-panel__footer {
+    height: auto;
+    line-height: 1;
+    padding: eleVar('timepicker', 'footer-padding');
+  }
+
+  .el-time-panel__btn {
+    margin: 0;
+    padding: eleVar('timepicker', 'button-padding');
+    height: eleVar('timepicker', 'button-height');
+    line-height: eleVar('timepicker', 'button-height');
+    color: elVar('text-color', 'regular');
+    font-size: eleVar('timepicker', 'button-size');
+    border-radius: eleVar('timepicker', 'button-radius');
+    transition: all $transition-base;
+    box-sizing: border-box;
+
+    &.cancel:hover {
+      color: elVar('text-color', 'primary');
+      background: elVar('fill-color', 'light');
+    }
+
+    &.confirm {
+      font-weight: normal;
+      color: elVar('text-color', 'primary');
+      border: 1px solid elVar('border-color');
+
+      &:hover {
+        color: elVar('color-primary');
+        border-color: elVar('color-primary');
+      }
+    }
+
+    & + .el-time-panel__btn {
+      margin-left: eleVar('timepicker', 'button-space');
+    }
+  }
+
+  // 箭头控制模式
+  .el-time-spinner__wrapper.is-arrow {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    padding: eleVar('timepicker', 'padding');
+
+    .el-time-spinner__list {
+      transform: none;
+      padding: 0;
+
+      &::after,
+      &::before {
+        display: none;
+      }
+    }
+
+    .el-time-spinner__item {
+      & + .el-time-spinner__item {
+        margin-top: eleVar('timepicker', 'line-padding');
+      }
+
+      &:hover:not(.is-disabled):not(.is-active) {
+        color: eleVar('timepicker', 'item-color');
+        background: none;
+      }
+    }
+  }
+
+  .el-time-spinner__arrow {
+    position: static;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    height: eleVar('timepicker', 'item-height');
+    line-height: eleVar('timepicker', 'item-height');
+    color: eleVar('timepicker', 'arrow-color');
+    font-size: eleVar('timepicker', 'arrow-size');
+    border-radius: eleVar('timepicker', 'item-radius');
+    transition: (color $transition-base, background-color $transition-base);
+
+    &.arrow-up {
+      margin-bottom: eleVar('timepicker', 'line-padding');
+    }
+
+    &.arrow-down {
+      order: 3;
+      margin-top: eleVar('timepicker', 'line-padding');
+    }
+
+    &:hover {
+      color: eleVar('timepicker', 'item-hover-color');
+      background: eleVar('timepicker', 'item-hover-bg');
+    }
+  }
+}
+
+// 时间选择宽度设置
+.el-popper .el-time-panel,
+.el-time-range-picker .el-time-range-picker__cell {
+  width: eleVar('timepicker', 'width');
+}
+
+// 时间范围
+.el-time-range-picker {
+  .el-time-range-picker__content {
+    padding: 0;
+    display: flex;
+  }
+
+  .el-time-range-picker__cell {
+    flex-shrink: 1;
+    padding: 0;
+
+    & + .el-time-range-picker__cell .el-time-range-picker__body {
+      box-shadow: -0.8px 0 0 0 elVar('datepicker', 'border-color');
+    }
+  }
+
+  .el-time-range-picker__header {
+    margin: 0;
+    height: eleVar('timepicker', 'header-height');
+    line-height: eleVar('timepicker', 'header-height');
+    border-bottom: eleVar('timepicker', 'header-border');
+    font-size: eleVar('timepicker', 'header-size');
+    box-sizing: border-box;
+  }
+
+  .el-time-range-picker__body {
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    padding: 0 eleVar('timepicker', 'range-space');
+  }
+
+  .el-time-panel__content::before {
+    $s1: eleVar('timepicker', 'line-margin');
+    $s2: eleVar('timepicker', 'range-space');
+    left: calc(#{$s1} + #{$s2});
+    right: calc(#{$s1} + #{$s2});
+  }
+}
+
+.el-popper .el-time-range-picker {
+  width: auto;
+}
+
+.el-popper.is-light.el-picker__popper {
+  max-width: calc(100% - 32px);
+}

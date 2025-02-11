@@ -1,0 +1,552 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-input,
+.el-textarea,
+.el-select,
+.el-range-editor {
+  @include set-ele-var('input', $ele);
+  @include set-ele-var('input-error', $ele);
+}
+
+.el-input--small,
+.el-select--small {
+  @include set-ele-var('input-sm', $ele);
+}
+
+.el-input--large,
+.el-select--large {
+  @include set-ele-var('input-lg', $ele);
+}
+
+.el-textarea {
+  @include set-ele-var('textarea', $ele);
+}
+
+.el-textarea.el-input--small {
+  @include set-ele-var('textarea-sm', $ele);
+}
+
+.el-textarea.el-input--large {
+  @include set-ele-var('textarea-lg', $ele);
+}
+
+.el-input .el-input__wrapper,
+.el-textarea .el-textarea__inner,
+.el-select .el-select__wrapper,
+.el-date-editor.el-range-editor.el-input__wrapper {
+  border: eleVar('input', 'border');
+  background: eleVar('input', 'bg');
+  border-radius: eleVar('input', 'radius');
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: eleVar('input', 'padding-left');
+  padding-right: eleVar('input', 'padding-right');
+  transition: all $transition-base;
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: none;
+  gap: 0;
+}
+
+.el-textarea .el-textarea__inner {
+  padding-top: eleVar('textarea', 'padding-top');
+  padding-bottom: eleVar('textarea', 'padding-bottom');
+  min-height: elVar('component-size') !important;
+}
+
+/* Hover */
+.el-input .el-input__wrapper:hover,
+.el-textarea .el-textarea__inner:hover,
+.el-select:not(.el-select--disabled):hover .el-input .el-input__wrapper,
+.el-select .el-select__wrapper:not(.is-disabled):hover,
+.el-select .el-select__wrapper:not(.is-disabled).is-hovering,
+.el-cascader:not(.is-disabled):hover .el-input .el-input__wrapper,
+.el-range-editor.el-input__wrapper:not(.is-disabled):hover,
+body .el-input-number:not(.is-disabled):hover .el-input .el-input__wrapper {
+  border: eleVar('input', 'hover-border');
+  background: eleVar('input', 'hover-bg');
+  box-shadow: eleVar('input', 'hover-shadow');
+}
+
+/* Focus */
+.el-input .el-input__wrapper.is-focus,
+.el-textarea .el-textarea__inner:focus,
+.el-select .el-select__wrapper:not(.is-disabled).is-focused,
+.el-cascader .el-input.el-input--suffix .el-input__wrapper.is-focus,
+.el-cascader .el-input.el-input--suffix.is-focus .el-input__wrapper,
+.el-range-editor.el-input__wrapper.is-active:not(.is-disabled),
+body .el-input-number:not(.is-disabled) .el-input .el-input__wrapper.is-focus {
+  border: eleVar('input', 'focus-border');
+  background: eleVar('input', 'focus-bg');
+  box-shadow: eleVar('input', 'focus-shadow');
+}
+
+/* 层级 */
+.el-input .el-input__wrapper:hover,
+.el-input .el-input__wrapper.is-focus {
+  z-index: 2;
+}
+
+.el-select .el-select__tags,
+.el-cascader .el-cascader__tags,
+.el-input-number .el-input-number__increase,
+.el-input-number .el-input-number__decrease {
+  z-index: 3;
+}
+
+/* 字数统计 */
+.el-input .el-input__wrapper .el-input__count {
+  color: eleVar('input', 'count-color');
+  font-size: eleVar('input', 'count-size');
+  margin-left: eleVar('input', 'icon-space');
+  line-height: normal;
+
+  .el-input__count-inner {
+    padding: 0;
+  }
+}
+
+/* 图标 */
+.el-input .el-input__wrapper .el-input__icon,
+.el-select .el-input .el-input__wrapper .el-select__icon,
+.el-select .el-select__wrapper .el-select__icon,
+.el-range-editor .el-input__icon.el-range__icon,
+.el-range-editor .el-input__icon.el-range__close-icon,
+.el-input .el-input__wrapper .el-input__prefix-icon {
+  color: eleVar('input', 'icon-color');
+  font-size: eleVar('input', 'icon-size');
+  transition: all $transition-base;
+  height: 1em;
+}
+
+.el-input .el-input__prefix-inner .el-input__icon,
+.el-select .el-input__prefix-inner .el-select__icon,
+.el-range-editor .el-input__icon.el-range__icon,
+.el-input .el-input__prefix-inner > div {
+  margin-right: eleVar('input', 'icon-space');
+}
+
+.el-input .el-input__suffix-inner .el-input__icon,
+.el-select .el-input__suffix-inner .el-select__icon {
+  margin-left: eleVar('input', 'icon-space');
+}
+
+.el-select .el-select__suffix {
+  gap: 0;
+}
+
+/* 密码图标 */
+.el-input .el-input__wrapper .el-input__password {
+  margin: eleVar('input', 'eye-margin');
+
+  &:hover {
+    color: eleVar('input', 'icon-hover-color');
+  }
+}
+
+/* 清空图标 */
+.el-input .el-input__wrapper .el-input__clear,
+.el-select .el-input .el-select__caret,
+.el-select .el-select__wrapper .el-select__caret,
+.el-cascader .el-input__icon.icon-circle-close,
+.el-cascader .el-input__icon.icon-arrow-down,
+.el-date-editor .el-input__icon.clear-icon,
+.el-range-editor .el-input__icon.el-range__close-icon {
+  margin: eleVar('input', 'clear-margin');
+}
+
+.el-input .el-input__wrapper .el-input__clear,
+.el-cascader .el-input__icon.icon-circle-close,
+.el-date-editor .el-input__icon.clear-icon,
+.el-range-editor .el-input__icon.el-range__close-icon {
+  color: eleVar('input', 'clear-color');
+
+  &:hover {
+    color: eleVar('input', 'clear-hover-color');
+  }
+}
+
+/* 表单验证状态图标 */
+.el-input .el-input__wrapper .el-input__validateIcon,
+.el-select .el-select__wrapper .el-input__validateIcon {
+  color: eleVar('input', 'status-color');
+  margin: eleVar('input', 'status-margin');
+}
+
+.el-input .el-input__clear + .el-input__validateIcon,
+.el-input__icon.icon-circle-close + .el-input__validateIcon,
+.el-input__icon.clear-icon + .el-input__validateIcon {
+  display: none;
+}
+
+.el-input__validateIcon > svg > path {
+  #{'d'}: path($icon-validate-path);
+
+  &:last-child {
+    fill: none;
+    #{'d'}: path('');
+  }
+}
+
+/* 清空图标和验证失败图标修改 */
+.el-input__clear > svg > path,
+.el-input__icon.icon-circle-close > svg > path,
+.el-input__icon.clear-icon > svg > path,
+.el-input__icon.el-range__close-icon > svg > path,
+.el-form-item.is-error .el-input__validateIcon > svg > path {
+  #{'d'}: path($icon-clear-path);
+
+  &:last-child {
+    fill: none;
+    #{'d'}: path('');
+  }
+}
+
+/* 下拉的箭头图标修改 */
+.el-select__caret,
+.el-input__icon.icon-arrow-down {
+  & > svg > path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 84;
+    stroke-linecap: round;
+    transition: (d $transition-base, fill $transition-base);
+    #{'d'}: path('M216 362L512 662L808 362');
+  }
+
+  &.is-reverse > svg > path {
+    #{'d'}: path('M216 662L512 362L808 662');
+  }
+}
+
+.el-select .el-input .el-input__wrapper .el-select__caret.is-reverse,
+.el-select .el-select__wrapper .el-select__caret.is-reverse,
+.el-cascader .el-input .el-input__icon.icon-arrow-down.is-reverse {
+  transform: none;
+}
+
+/* 下拉的清空图标修改 */
+.el-select__caret {
+  & > svg > path[d^='m466'] {
+    stroke: none;
+    fill: eleVar('input', 'clear-color');
+    #{'d'}: path($icon-clear-path);
+  }
+
+  & > svg > path + path {
+    fill: none;
+    #{'d'}: path('');
+  }
+
+  &:hover > svg > path[d^='m466'] {
+    fill: eleVar('input', 'clear-hover-color');
+  }
+}
+
+/* 组合 */
+.el-input {
+  &.el-input-group--prepend > .el-input__wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.el-input-group--append > .el-input__wrapper {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .el-input-group__prepend,
+  .el-input-group__append {
+    flex-shrink: 0;
+    color: eleVar('input', 'extra-color');
+    background: eleVar('input', 'extra-bg');
+    padding: eleVar('input', 'extra-padding');
+    line-height: eleVar('input', 'extra-line-height');
+    border-radius: eleVar('input', 'radius');
+    border: eleVar('input', 'border');
+    box-sizing: border-box;
+    box-shadow: none;
+
+    & > .el-button,
+    & > .el-select {
+      margin: eleVar('input', 'extra-preset-margin');
+    }
+  }
+
+  .el-input-group__prepend {
+    border-right: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .el-input-group__append {
+    border-left: none;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.el-input.el-input-group.el-input-group--prepend > .el-input-group__prepend,
+.el-input.el-input-group.el-input-group--append > .el-input-group__append {
+  & > .el-select > .select-trigger > .el-input > .el-input__wrapper,
+  & > .el-select > .el-select__wrapper {
+    background: none;
+    border-color: transparent;
+    box-shadow: none !important;
+  }
+}
+
+.el-input-group__prepend,
+.el-input-group__append {
+  & > .el-select .el-input__validateIcon {
+    display: none;
+  }
+}
+
+/* 禁用 */
+body .el-input.is-disabled .el-input__wrapper,
+body .el-textarea.is-disabled .el-textarea__inner,
+body .el-select.el-select--disabled .el-input.is-disabled .el-input__wrapper,
+.el-select .el-select__wrapper.is-disabled,
+.el-select .el-select__wrapper.is-disabled:hover,
+.el-select .el-select__wrapper.is-disabled.is-hovering,
+.el-date-editor.el-range-editor.is-disabled.el-input__wrapper {
+  cursor: not-allowed;
+  border: eleVar('input', 'disabled-border');
+  background: eleVar('input', 'disabled-bg');
+  box-shadow: none;
+}
+
+.el-input.is-disabled .el-input__wrapper .el-input__inner,
+body .el-textarea.is-disabled .el-textarea__inner,
+.el-select__wrapper.is-disabled .el-select__placeholder,
+.el-range-editor.is-disabled.el-input__wrapper input {
+  color: eleVar('input', 'disabled-color');
+  -webkit-text-fill-color: eleVar('input', 'disabled-color');
+}
+
+/* 小尺寸 */
+.el-input.el-input--small .el-input__wrapper,
+.el-textarea.el-input--small .el-textarea__inner,
+.el-select.el-select--small .el-select__wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: eleVar('input-sm', 'padding-left');
+  padding-right: eleVar('input-sm', 'padding-right');
+  gap: 0;
+}
+
+/* 大尺寸 */
+.el-input.el-input--large .el-input__wrapper,
+.el-textarea.el-input--large .el-textarea__inner,
+.el-select.el-select--large .el-select__wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: eleVar('input-lg', 'padding-left');
+  padding-right: eleVar('input-lg', 'padding-right');
+  gap: 0;
+}
+
+/* Textarea */
+body .el-textarea .el-input__count {
+  color: eleVar('input', 'count-color');
+  font-size: eleVar('input', 'count-size');
+  background: eleVar('textarea', 'count-bg');
+  padding: eleVar('textarea', 'count-padding');
+  bottom: eleVar('textarea', 'count-bottom');
+  right: eleVar('textarea', 'count-right');
+  box-sizing: border-box;
+  line-height: normal;
+}
+
+.el-textarea.el-input--small .el-textarea__inner {
+  padding-top: eleVar('textarea-sm', 'padding-top');
+  padding-bottom: eleVar('textarea-sm', 'padding-bottom');
+  min-height: elVar('component-size', 'small') !important;
+}
+
+.el-textarea.el-input--large .el-textarea__inner {
+  padding-top: eleVar('textarea-lg', 'padding-top');
+  padding-bottom: eleVar('textarea-lg', 'padding-bottom');
+  min-height: elVar('component-size', 'large') !important;
+}
+
+/* Select */
+.el-select .el-input .el-input__wrapper.is-focus,
+.el-select .el-input.el-input--suffix.is-focus .el-input__wrapper {
+  border: eleVar('input', 'focus-border');
+  background: eleVar('input', 'focus-bg');
+  box-shadow: eleVar('input', 'focus-shadow') !important;
+}
+
+/* Cascader */
+.el-cascader .el-input .el-input__wrapper .el-input__suffix .el-input__icon {
+  height: 1em;
+}
+
+/* DatePicker */
+.el-range-editor.is-disabled.el-input__wrapper input {
+  background: none;
+}
+
+/* InputNumber */
+.el-input-number {
+  .el-input-number__increase,
+  .el-input-number__decrease {
+    width: elVar('component-size');
+    transition: color $transition-base;
+    bottom: 0.8px;
+    top: 0.8px;
+  }
+
+  .el-input-number__increase {
+    right: 0.8px;
+  }
+
+  .el-input-number__decrease {
+    left: 0.8px;
+  }
+
+  &.is-controls-right .el-input__inner {
+    text-align: left;
+  }
+}
+
+body .el-input-number.is-controls-right {
+  .el-input-number__increase {
+    bottom: auto;
+  }
+
+  .el-input-number__decrease {
+    right: 0.8px;
+    left: auto;
+    top: auto;
+  }
+}
+
+body .el-input-number .el-input .el-input__wrapper {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: eleVar('input', 'padding-left');
+  padding-right: calc(
+    #{elVar('component-size')} + #{eleVar('input', 'icon-space')}
+  );
+}
+
+.el-input-number.el-input-number--small {
+  .el-input-number__increase,
+  .el-input-number__decrease {
+    width: elVar('component-size', 'small');
+  }
+
+  .el-input .el-input__wrapper {
+    padding-left: eleVar('input-sm', 'padding-left');
+    padding-right: calc(
+      #{elVar('component-size', 'small')} + #{eleVar('input', 'icon-space')}
+    );
+  }
+}
+
+.el-input-number.el-input-number--large {
+  .el-input-number__increase,
+  .el-input-number__decrease {
+    width: elVar('component-size', 'large');
+  }
+
+  .el-input .el-input__wrapper {
+    padding-left: eleVar('input-lg', 'padding-left');
+    padding-right: calc(
+      #{elVar('component-size', 'large')} + #{eleVar('input', 'icon-space')}
+    );
+  }
+}
+
+.el-input-number:not(.is-controls-right) .el-input .el-input__wrapper {
+  padding-left: calc(
+    #{elVar('component-size')} + #{eleVar('input', 'icon-space')}
+  );
+}
+
+.el-input-number--small:not(.is-controls-right) .el-input .el-input__wrapper {
+  padding-left: calc(
+    #{elVar('component-size', 'small')} + #{eleVar('input', 'icon-space')}
+  );
+}
+
+.el-input-number--large:not(.is-controls-right) .el-input .el-input__wrapper {
+  padding-left: calc(
+    #{elVar('component-size', 'large')} + #{eleVar('input', 'icon-space')}
+  );
+}
+
+body .el-input-number.is-disabled .el-input-number__increase,
+body .el-input-number.is-disabled .el-input-number__decrease {
+  color: elVar('disabled', 'text-color');
+  border-color: elVar('disabled', 'border-color');
+
+  &:hover {
+    color: elVar('disabled', 'text-color');
+  }
+}
+
+/* 表单验证 */
+.el-form-item.is-error {
+  .el-input .el-input__wrapper,
+  .el-textarea .el-textarea__inner,
+  .el-select .select-trigger .el-input .el-input__wrapper,
+  .el-select .el-select__wrapper,
+  .el-cascader .el-input .el-input__wrapper,
+  .el-range-editor.el-input__wrapper,
+  .el-input-number .el-input:not(.is-disabled) .el-input__wrapper {
+    border: eleVar('input-error', 'border');
+    background: eleVar('input-error', 'bg');
+    box-shadow: none;
+  }
+
+  .el-input .el-input__wrapper:hover,
+  .el-textarea .el-textarea__inner:hover,
+  .el-select .select-trigger .el-input .el-input__wrapper:hover,
+  .el-select .el-select__wrapper:hover,
+  .el-select .el-select__wrapper.is-hovering,
+  .el-cascader .el-input .el-input__wrapper:hover,
+  .el-range-editor.el-input__wrapper:hover,
+  .el-input-number:hover .el-input .el-input__wrapper {
+    border: eleVar('input-error', 'hover-border');
+    background: eleVar('input-error', 'hover-bg');
+    box-shadow: eleVar('input-error', 'hover-shadow');
+  }
+
+  .el-input .el-input__wrapper.is-focus,
+  .el-select .select-trigger .el-input.is-focus .el-input__wrapper,
+  .el-select .el-select__wrapper.is-focused,
+  .el-cascader .select-trigger .el-input.is-focus .el-input__wrapper {
+    border: eleVar('input-error', 'focus-border');
+    background: eleVar('input-error', 'focus-bg');
+    box-shadow: eleVar('input-error', 'focus-shadow') !important;
+  }
+
+  .el-textarea .el-textarea__inner:focus,
+  .el-range-editor.el-input__wrapper.is-active,
+  .el-input-number .el-input .el-input__wrapper.is-focus {
+    border: eleVar('input-error', 'focus-border');
+    background: eleVar('input-error', 'focus-bg');
+    box-shadow: eleVar('input-error', 'focus-shadow');
+  }
+
+  .el-input.is-disabled .el-input__wrapper,
+  .el-textarea.is-disabled .el-textarea__inner,
+  .el-select .select-trigger .el-input.is-disabled .el-input__wrapper,
+  .el-select .el-select__wrapper.is-disabled,
+  .el-cascader .el-input.is-disabled .el-input__wrapper,
+  .el-range-editor.el-input__wrapper.is-disabled,
+  .el-input-number.is-disabled .el-input .el-input__wrapper {
+    border: eleVar('input-error', 'disabled-border');
+    background: eleVar('input-error', 'disabled-bg');
+    box-shadow: none;
+  }
+
+  .el-input__validateIcon {
+    color: eleVar('input-error', 'status-color');
+  }
+}

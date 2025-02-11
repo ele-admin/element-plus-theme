@@ -1,0 +1,106 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-tree-select__popper {
+  @include set-ele-var('tree-select', $ele);
+
+  .el-select-dropdown__wrap .el-select-dropdown__list {
+    margin: 0 !important;
+    padding: eleVar('tree-select', 'padding') !important;
+  }
+
+  .el-tree {
+    background: none;
+  }
+
+  .el-tree-node__content {
+    position: relative;
+    z-index: 0;
+
+    .el-select-dropdown__item {
+      height: auto;
+      line-height: eleVar('tree', 'item-line-height');
+      padding: 0;
+      border-radius: 0;
+      position: static;
+
+      &::before {
+        content: '';
+        border-radius: eleVar('tree', 'item-radius');
+        transition: background-color $transition-base;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+      }
+    }
+
+    & > .el-checkbox,
+    & > .el-checkbox + .el-tree-node__loading-icon {
+      & + .el-select-dropdown__item::before {
+        display: none;
+      }
+    }
+
+    &:has(> .el-select-dropdown__item.is-disabled) {
+      cursor: not-allowed;
+    }
+  }
+
+  .el-tree .el-tree-node > .el-tree-node__content .el-select-dropdown__item {
+    color: inherit;
+    font-weight: normal;
+  }
+
+  /* 选中 */
+  .el-tree-node > .el-tree-node__content {
+    .el-select-dropdown__item.selected,
+    .el-select-dropdown__item.is-selected {
+      color: eleVar('tree', 'item-active-color');
+      font-weight: eleVar('tree', 'item-active-weight');
+
+      &::before {
+        background: eleVar('tree', 'item-active-bg');
+      }
+    }
+
+    &:hover .el-select-dropdown__item.selected::before,
+    &:hover .el-select-dropdown__item.is-selected::before {
+      background: eleVar('tree', 'item-active-hover-bg');
+    }
+  }
+
+  /* 有复选框时去掉文本选中效果 */
+  .el-tree-node > .el-tree-node__content > .el-checkbox,
+  .el-tree-node__content > .el-checkbox + .el-tree-node__loading-icon {
+    & + .el-select-dropdown__item {
+      color: inherit;
+      font-weight: normal;
+    }
+  }
+
+  /* 有复选框时去掉右侧选中图标 */
+  .el-tree-node.is-checked > .el-tree-node__content {
+    & > .el-select-dropdown__item.is-selected::after {
+      display: none;
+    }
+  }
+
+  /* 禁用 */
+  .el-tree-node > .el-tree-node__content .el-select-dropdown__item.is-disabled {
+    color: eleVar('tree-select', 'item-disabled-color');
+
+    &::before {
+      display: none;
+    }
+  }
+
+  /* 行点击高亮时去掉模拟背景的伪元素 */
+  .el-tree--highlight-current .el-tree-node.is-current {
+    & > .el-tree-node__content .el-select-dropdown__item::before {
+      display: none;
+    }
+  }
+}

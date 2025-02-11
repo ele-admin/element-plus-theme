@@ -1,0 +1,50 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-descriptions {
+  @include set-ele-var('descriptions', $ele);
+
+  .el-descriptions__table.is-bordered {
+    border-spacing: 0;
+    border-collapse: separate;
+    border-radius: eleVar('descriptions', 'radius');
+    border-top: 1px solid eleVar('descriptions', 'border-color');
+    border-left: 1px solid eleVar('descriptions', 'border-color');
+
+    tr {
+      & > .el-descriptions__cell {
+        border-top: none;
+        border-left: none;
+        border-color: eleVar('descriptions', 'border-color');
+      }
+
+      &:first-child > .el-descriptions__cell {
+        &:first-child {
+          border-top-left-radius: eleVar('descriptions', 'radius');
+        }
+
+        &:last-child {
+          border-top-right-radius: eleVar('descriptions', 'radius');
+        }
+      }
+
+      &:last-child > .el-descriptions__cell {
+        &:first-child {
+          border-bottom-left-radius: eleVar('descriptions', 'radius');
+        }
+
+        &:last-child {
+          border-bottom-right-radius: eleVar('descriptions', 'radius');
+        }
+      }
+    }
+  }
+
+  .el-descriptions__label.el-descriptions__cell.is-bordered-label {
+    background: eleVar('descriptions', 'bg');
+  }
+
+  .el-descriptions__cell {
+    word-break: break-all;
+  }
+}

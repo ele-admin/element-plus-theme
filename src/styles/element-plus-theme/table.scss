@@ -1,0 +1,358 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-table {
+  @include set-ele-var('table', $ele);
+}
+
+body div.el-table {
+  $left-shadow: eleVar('table', 'fixed-left-shadow');
+  $right-shadow: eleVar('table', 'fixed-right-shadow');
+  #{elVarName('table', 'border-color')}: eleVar('table', 'border-color');
+  #{elVarName('table', 'text-color')}: eleVar('table', 'color');
+  #{elVarName('table', 'fixed-left-column')}: #{$left-shadow};
+  #{elVarName('table', 'fixed-right-column')}: #{$right-shadow};
+}
+
+/* 设置单元格圆角 */
+@mixin data-table-radius($radius) {
+  & > .el-table__inner-wrapper > .el-table__header-wrapper,
+  &.el-table--border > .el-table__inner-wrapper::after,
+  &.el-table--border.hide-header
+    > .el-table__inner-wrapper
+    > .el-table__body-wrapper,
+  &.el-table--layout-auto:not(.hide-header)
+    > .el-table__inner-wrapper
+    > .el-table__body-wrapper {
+    border-top-left-radius: $radius;
+    border-top-right-radius: $radius;
+  }
+
+  & > .el-table__inner-wrapper > .el-table__footer-wrapper,
+  &.el-table--border > .el-table__inner-wrapper::before,
+  &.el-table--border:not(.has-footer)
+    > .el-table__inner-wrapper
+    > .el-table__body-wrapper,
+  &.el-table--layout-auto.has-footer
+    > .el-table__inner-wrapper
+    > .el-table__body-wrapper {
+    border-bottom-left-radius: $radius;
+    border-bottom-right-radius: $radius;
+  }
+
+  &.el-table--border::before {
+    border-bottom-left-radius: $radius;
+    border-top-left-radius: $radius;
+  }
+
+  &.el-table--border::after {
+    border-bottom-right-radius: $radius;
+    border-top-right-radius: $radius;
+  }
+}
+
+/* 原始样式重写 */
+div.el-table,
+div.el-table tr {
+  background: none;
+}
+
+.el-table > .el-table__inner-wrapper > .el-table__header-wrapper {
+  z-index: 4;
+}
+
+/* 底部间距补丁 */
+div.el-table > .el-table__inner-wrapper > .el-table__body-wrapper {
+  & > .el-scrollbar > .el-scrollbar__wrap {
+    padding-bottom: eleVar('table', 'fix-height');
+    box-sizing: border-box;
+  }
+}
+
+.el-table {
+  /* 单元格背景 */
+  & > .el-table__inner-wrapper {
+    .el-table__row {
+      & > td.el-table__cell {
+        background: eleVar('table', 'tr-bg');
+      }
+
+      &.el-table__row--striped > td.el-table__cell {
+        background: eleVar('table', 'even-bg');
+      }
+
+      &:hover > td.el-table__cell,
+      &.hover-row > td.el-table__cell {
+        background: eleVar('table', 'tr-hover-bg');
+      }
+
+      &.current-row > td.el-table__cell {
+        background: eleVar('table', 'tr-active-bg');
+      }
+
+      &.current-row:hover > td.el-table__cell,
+      &.current-row.hover-row > td.el-table__cell {
+        background: eleVar('table', 'tr-active-hover-bg');
+      }
+    }
+
+    & > .el-table__header-wrapper tr > th.el-table__cell,
+    & > .el-table__body-wrapper .el-table__row > th.el-table__cell,
+    & > .el-table__footer-wrapper > .el-table__footer .el-table__cell,
+    &
+      > .el-table__body-wrapper
+      > .el-scrollbar
+      > .el-scrollbar__wrap
+      > .el-scrollbar__view
+      > .el-table__body
+      > .el-table__body-footer
+      .el-table__cell {
+      background: eleVar('table', 'th-bg');
+    }
+
+    & > .el-table__header-wrapper thead > tr,
+    & > .el-table__body-wrapper thead > tr {
+      & > .el-table__cell.is-sortable:hover {
+        background: eleVar('table', 'sort-hover-bg');
+      }
+    }
+  }
+
+  /* 表头单元格 */
+  th > div.cell {
+    color: eleVar('table', 'th-color');
+    font-weight: eleVar('table', 'th-font-weight');
+  }
+
+  thead > tr > .el-table__cell {
+    transition: background-color $transition-base;
+
+    &::after {
+      content: '';
+      width: 0;
+      height: 20px;
+      border-right: 1px solid eleVar('table', 'border-color');
+      position: absolute;
+      right: 0;
+      top: 50%;
+      margin-top: -10px;
+    }
+  }
+
+  thead > tr > .el-table__cell:last-child::after,
+  thead > tr > .el-table__cell.el-table-column--selection::after,
+  thead > tr > .el-table__cell.el-table__expand-column::after,
+  &.is-scrolling-middle .el-table-fixed-column--left.is-last-column::after,
+  &.is-scrolling-right .el-table-fixed-column--left.is-last-column::after,
+  &.el-table--border thead > tr > .el-table__cell::after {
+    display: none;
+  }
+
+  /* 行高 */
+  tr > .el-table__cell > .cell,
+  .el-table__row > .el-table__cell > .cell {
+    line-height: eleVar('table', 'line-height');
+  }
+
+  /* 展开按钮 */
+  .el-table__row > .el-table__cell > .cell {
+    & > .el-table__expand-icon {
+      font-size: 14px;
+      align-items: center;
+      justify-content: center;
+      border-radius: eleVar('table', 'icon-radius');
+      transition: (color $transition-base, background-color $transition-base);
+      transform: none;
+
+      &:hover {
+        background: eleVar('table', 'icon-hover-bg');
+      }
+
+      & > .el-icon {
+        transition: all $transition-base;
+        font-size: inherit;
+
+        & > svg > path {
+          fill: none;
+          stroke: currentColor;
+          stroke-linecap: round;
+          stroke-linejoin: round;
+          stroke-width: 98;
+          #{'d'}: path($icon-expand-path);
+        }
+      }
+
+      & > .is-loading > svg > path {
+        stroke-width: 85;
+        #{'d'}: path($icon-loading-path);
+      }
+
+      & > .el-icon:not(.is-loading) > svg {
+        transform: translateX(0.4px);
+      }
+    }
+
+    & > .el-table__expand-icon,
+    & > .el-table__indent,
+    & > .el-table__placeholder {
+      height: 16px;
+      display: inline-flex;
+      vertical-align: -2px;
+    }
+
+    & > .el-table__expand-icon,
+    & > .el-table__placeholder {
+      width: 16px;
+      margin: eleVar('table', 'expand-margin');
+    }
+
+    & > .el-table__expand-icon--expanded > .el-icon:not(.is-loading) {
+      transform: rotate(90deg);
+    }
+  }
+
+  /* 展开列 */
+  .el-table__row > .el-table__expand-column > .cell > .el-table__expand-icon {
+    margin: 0;
+    justify-content: center;
+  }
+
+  /* 复选框 */
+  tr > .el-table-column--selection > .cell,
+  .el-table__row > .el-table-column--selection > .cell {
+    height: auto;
+    vertical-align: middle;
+    overflow: visible;
+  }
+
+  .el-table__row > .el-table-column--selection {
+    &.is-center > .cell {
+      justify-content: center;
+    }
+
+    &.is-right > .cell {
+      justify-content: flex-end;
+    }
+  }
+
+  /* 表尾 */
+  & > .el-table__inner-wrapper > .el-table__footer-wrapper,
+  &
+    > .el-table__inner-wrapper
+    > .el-table__body-wrapper
+    > .el-scrollbar
+    > .el-scrollbar__wrap
+    > .el-scrollbar__view
+    > .el-table__body
+    > .el-table__body-footer {
+    border-top: 1px solid eleVar('table', 'border-color');
+    margin-top: calc(-1px - eleVar('table', 'fix-height'));
+    z-index: 3;
+
+    td.el-table__cell {
+      border-bottom-color: transparent;
+    }
+  }
+
+  /* 边框线 */
+  &.el-table--border,
+  &.el-table > .el-table__inner-wrapper {
+    &::before,
+    &::after {
+      background: none;
+      position: absolute;
+      box-sizing: border-box;
+      pointer-events: none;
+      z-index: 5;
+    }
+  }
+
+  &.el-table > .el-table__inner-wrapper::before,
+  &.el-table > .el-table__inner-wrapper::after {
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: calc(1px + #{eleVar('table', 'radius')});
+  }
+
+  &.el-table > .el-table__inner-wrapper::before {
+    content: '';
+    bottom: 0;
+    border-bottom: 1px solid eleVar('table', 'border-color');
+  }
+
+  &.el-table.el-table--border > .el-table__inner-wrapper::after,
+  &.el-table.hide-header > .el-table__inner-wrapper::after {
+    content: '';
+    top: 0;
+    border-top: 1px solid eleVar('table', 'border-color');
+  }
+
+  &.el-table--border > .el-table__inner-wrapper {
+    &::before,
+    &::after {
+      border-right: 1px solid transparent;
+      border-left: 1px solid transparent;
+    }
+  }
+
+  & > .el-table__inner-wrapper > .el-table__border-left-patch,
+  &.has-footer:not(.el-table--border) > .el-table__inner-wrapper::before,
+  &.hide-bottom-line > .el-table__inner-wrapper::before {
+    display: none;
+  }
+
+  /* 全边框 */
+  &.el-table--border {
+    &::before,
+    &::after {
+      content: '';
+      top: 0;
+      bottom: 0;
+      height: 100%;
+      width: calc(1px + #{eleVar('table', 'radius')});
+      border-bottom: 1px solid transparent;
+      border-top: 1px solid transparent;
+    }
+
+    &::before {
+      left: 0;
+      border-left: 1px solid eleVar('table', 'border-color');
+    }
+
+    &::after {
+      right: 0;
+      border-right: 1px solid eleVar('table', 'border-color');
+    }
+  }
+
+  /* 适配底部间距补丁 */
+  &.el-table:not(.has-footer) > .el-table__inner-wrapper::before {
+    bottom: eleVar('table', 'fix-height');
+    box-shadow: 0 0.8px 0 eleVar('table', 'tr-bg');
+  }
+
+  &.el-table--border:not(.has-footer)::before,
+  &.el-table--border:not(.has-footer)::after {
+    bottom: eleVar('table', 'fix-height');
+    height: auto;
+  }
+
+  /* 圆角 */
+  @include data-table-radius(eleVar('table', 'radius'));
+
+  &.el-table--large {
+    @include data-table-radius(eleVar('table', 'lg-radius'));
+  }
+
+  &.el-table--small {
+    @include data-table-radius(eleVar('table', 'sm-radius'));
+  }
+
+  &.el-table--border > .el-loading-mask {
+    top: 1px;
+    left: 1px;
+    right: 1px;
+    bottom: 1px;
+  }
+}

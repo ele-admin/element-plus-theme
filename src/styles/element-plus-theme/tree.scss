@@ -1,0 +1,106 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-tree {
+  @include set-ele-var('tree', $ele);
+}
+
+body .el-tree {
+  background: none;
+}
+
+.el-tree {
+  .el-tree-node {
+    padding-top: eleVar('tree', 'item-margin');
+    box-sizing: border-box;
+  }
+
+  & > .el-tree-node:first-child {
+    padding-top: 0;
+  }
+
+  .el-tree-node__content {
+    height: eleVar('tree', 'item-height');
+    padding: eleVar('tree', 'item-padding');
+    border-radius: eleVar('tree', 'item-radius');
+    transition: (color $transition-base, background-color $transition-base);
+    box-sizing: border-box;
+
+    & > .el-tree-node__expand-icon {
+      flex-shrink: 0;
+      width: auto;
+      height: auto;
+      transform: none;
+      box-sizing: border-box;
+      margin: eleVar('tree', 'expand-margin');
+      padding: eleVar('tree', 'expand-padding');
+      border-radius: eleVar('tree', 'expand-radius');
+      font-size: eleVar('tree', 'expand-size');
+      transition: background-color $transition-base;
+      z-index: 4;
+
+      & > svg {
+        transition: transform 0.3s;
+      }
+
+      &.expanded > svg {
+        transform: rotate(90deg);
+      }
+
+      &:hover {
+        background: eleVar('tree', 'expand-hover-bg');
+      }
+
+      &.is-leaf {
+        pointer-events: none;
+      }
+    }
+
+    & > .el-checkbox {
+      flex-shrink: 0;
+    }
+
+    & > .el-tree-node__label {
+      flex: 1;
+      line-height: eleVar('tree', 'item-line-height');
+      transition: color $transition-base;
+      text-overflow: ellipsis;
+      word-break: break-all;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+
+  &.el-tree--highlight-current {
+    .el-tree-node.is-current > .el-tree-node__content {
+      background: eleVar('tree', 'item-active-bg');
+
+      .el-tree-node__label {
+        color: eleVar('tree', 'item-active-color');
+        font-weight: eleVar('tree', 'item-active-weight');
+      }
+
+      &:hover {
+        background: eleVar('tree', 'item-active-hover-bg');
+      }
+    }
+  }
+
+  /* TreeV2 */
+  .el-vl__wrapper {
+    box-sizing: border-box;
+
+    & > .el-virtual-scrollbar {
+      margin: auto 0;
+    }
+
+    .el-tree-node {
+      padding-top: 0;
+      padding-bottom: eleVar('tree', 'item-margin');
+    }
+
+    .el-tree-node__content {
+      height: 100% !important;
+    }
+  }
+}

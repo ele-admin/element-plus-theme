@@ -1,0 +1,73 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-popper {
+  @include set-ele-var('popper', $ele);
+}
+
+.el-popper.is-dark {
+  @include set-ele-var('tooltip', $ele);
+}
+
+body .el-popper {
+  border-radius: eleVar('popper', 'radius');
+
+  &.is-light {
+    background: eleVar('popper', 'bg');
+    border: eleVar('popper', 'border');
+    box-shadow: eleVar('popper', 'shadow');
+
+    & > .el-popper__arrow::before {
+      background: eleVar('popper', 'arrow-bg');
+      border: eleVar('popper', 'border');
+      box-shadow: eleVar('popper', 'arrow-shadow');
+    }
+  }
+
+  .el-popper__arrow {
+    width: eleVar('popper', 'arrow-size');
+    height: eleVar('popper', 'arrow-size');
+
+    &::before {
+      width: eleVar('popper', 'arrow-size');
+      height: eleVar('popper', 'arrow-size');
+    }
+  }
+
+  &[data-popper-placement^='top'] > .el-popper__arrow {
+    bottom: eleVar('popper', 'arrow-offset');
+  }
+
+  &[data-popper-placement^='bottom'] > .el-popper__arrow {
+    top: eleVar('popper', 'arrow-offset');
+  }
+
+  &[data-popper-placement^='left'] > .el-popper__arrow {
+    right: eleVar('popper', 'arrow-offset');
+  }
+
+  &[data-popper-placement^='right'] > .el-popper__arrow {
+    left: eleVar('popper', 'arrow-offset');
+  }
+
+  &.is-dark {
+    color: eleVar('tooltip', 'color');
+    font-size: eleVar('tooltip', 'font-size');
+    line-height: eleVar('tooltip', 'line-height');
+    padding: eleVar('tooltip', 'padding');
+    background: eleVar('tooltip', 'bg');
+    border: eleVar('tooltip', 'border');
+    box-shadow: eleVar('tooltip', 'shadow');
+    border-radius: eleVar('tooltip', 'radius');
+
+    & > .el-popper__arrow::before {
+      background: eleVar('tooltip', 'arrow-bg');
+      border: eleVar('tooltip', 'border');
+      box-shadow: eleVar('tooltip', 'arrow-shadow');
+    }
+  }
+
+  &.is-prevent-event .el-popper__arrow {
+    pointer-events: none;
+  }
+}

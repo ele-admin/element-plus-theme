@@ -1,0 +1,51 @@
+@use 'element-plus/theme-chalk/src/mixins/function.scss' as el;
+@use 'sass:map';
+
+@function eleJoinVar($list) {
+  $name: '--ele';
+  @each $item in $list {
+    @if $item != '' {
+      $name: $name + '-' + $item;
+    }
+  }
+  @return $name;
+}
+
+@function eleVar($arg1, $arg2: '', $arg3: '') {
+  $args: $arg1, $arg2;
+  @if $arg3 != '' {
+    @return var(#{eleJoinVar($args)}, $arg3);
+  } @else {
+    @return var(#{eleJoinVar($args)});
+  }
+}
+
+@function eleVarName($args...) {
+  @return eleJoinVar($args);
+}
+
+@mixin set-ele-var-value($name, $attribute, $value) {
+  #{eleVarName($name, $attribute)}: #{$value};
+}
+
+@mixin set-ele-var($name, $variables) {
+  & {
+    @if map.has-key($variables, $name) {
+      @each $attribute, $value in map.get($variables, $name) {
+        @include set-ele-var-value($name, $attribute, $value);
+      }
+    }
+  }
+}
+
+@function elVar($args...) {
+  @return el.getCssVar($args...);
+}
+
+@function elVarDefault($args, $default) {
+  @return el.getCssVarWithDefault($args, $default);
+}
+
+@function elVarName($args...) {
+  @return el.getCssVarName($args...);
+}

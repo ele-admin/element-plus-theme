@@ -1,0 +1,102 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-message-box {
+  @include set-ele-var('message-box', $ele);
+}
+
+.el-overlay-message-box .el-message-box {
+  padding: 0;
+  max-width: eleVar('message-box', 'width');
+  border-radius: eleVar('message-box', 'radius');
+  border: none;
+
+  .el-message-box__header {
+    padding: eleVar('message-box', 'header-padding');
+    border-bottom: eleVar('message-box', 'header-border');
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+  }
+
+  .el-message-box__title {
+    flex: 1;
+    color: eleVar('message-box', 'header-color');
+    font-size: eleVar('message-box', 'header-font-size');
+    font-weight: eleVar('message-box', 'header-font-weight');
+    line-height: eleVar('message-box', 'header-line-height');
+  }
+
+  .el-message-box__headerbtn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: eleVar('message-box', 'icon-size');
+    height: eleVar('message-box', 'icon-size');
+    line-height: eleVar('message-box', 'icon-size');
+    color: eleVar('message-box', 'icon-color');
+    font-size: eleVar('message-box', 'icon-font-size');
+    border-radius: eleVar('message-box', 'icon-radius');
+    transition: (color $transition-base, background-color $transition-base);
+    box-sizing: border-box;
+    position: static;
+    right: auto;
+    top: auto;
+
+    .el-message-box__close {
+      color: inherit;
+    }
+
+    &:hover {
+      color: eleVar('message-box', 'icon-hover-color');
+      background: eleVar('message-box', 'icon-hover-bg');
+    }
+  }
+
+  .el-message-box__content {
+    padding: eleVar('message-box', 'body-padding');
+    box-sizing: border-box;
+  }
+
+  .el-message-box__status {
+    flex-shrink: 0;
+    font-size: eleVar('message-box', 'status-size');
+  }
+
+  .el-message-box__btns {
+    padding: eleVar('message-box', 'footer-padding');
+    border-top: eleVar('message-box', 'footer-border');
+    box-sizing: border-box;
+  }
+
+  .el-message-box__input {
+    padding: 0;
+    margin: eleVar('message-box', 'input-margin');
+    position: relative;
+  }
+
+  .el-message-box__errormsg {
+    line-height: 18px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+  }
+}
+
+.el-message-box .el-message-box__status.el-message-box-icon--info {
+  color: elVar('color-primary');
+}
+
+.el-message-box__message {
+  word-break: break-all;
+}
+
+body .el-overlay.is-message-box > .el-overlay-message-box {
+  overflow-x: hidden;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

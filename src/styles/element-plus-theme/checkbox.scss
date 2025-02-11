@@ -1,0 +1,161 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-checkbox {
+  @include set-ele-var('checkbox', $ele);
+}
+
+body .el-checkbox {
+  .el-checkbox__label {
+    color: eleVar('checkbox', 'color');
+    font-size: eleVar('checkbox', 'font-size');
+    line-height: eleVar('checkbox', 'size');
+    transition: (color $transition-base, font-weight $transition-base);
+  }
+
+  .el-checkbox__inner {
+    width: eleVar('checkbox', 'size');
+    height: eleVar('checkbox', 'size');
+    background: eleVar('checkbox', 'bg');
+    border: eleVar('checkbox', 'border');
+    border-radius: eleVar('checkbox', 'radius');
+    transition: (
+      border-color $transition-base,
+      background-color $transition-base
+    );
+
+    &::after {
+      top: 50%;
+      left: eleVar('checkbox', 'icon-left');
+      width: eleVar('checkbox', 'icon-width');
+      height: eleVar('checkbox', 'icon-height');
+      border: 2px solid #fff;
+      border-top: 0;
+      border-left: 0;
+      box-sizing: border-box;
+      transform: rotate(45deg) scale(0) translate(-50%, -50%);
+      transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
+      opacity: 0;
+    }
+  }
+
+  .el-checkbox__input .el-checkbox__inner::before {
+    content: '';
+    width: 60%;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    background: #fff;
+    transform: translateX(-50%) scale(0);
+    margin-top: -1px;
+    transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6);
+    opacity: 0;
+  }
+
+  &:hover .el-checkbox__inner {
+    border: eleVar('checkbox', 'hover-border');
+  }
+
+  &.is-checked {
+    .el-checkbox__label {
+      color: eleVar('checkbox', 'active-color');
+    }
+
+    .el-checkbox__inner {
+      background: elVar('color-primary');
+      border: 1px solid elVar('color-primary');
+
+      &::after {
+        opacity: 1;
+        transform: rotate(45deg) scale(1) translate(-50%, -50%);
+        transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+      }
+    }
+  }
+
+  .el-checkbox__input.is-indeterminate .el-checkbox__inner {
+    background: elVar('color-primary');
+    border: 1px solid elVar('color-primary');
+
+    &::before {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+      transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    }
+
+    &::after {
+      display: block;
+      transform: rotate(45deg) scale(0) translate(-50%, -50%);
+      opacity: 0;
+    }
+  }
+
+  &.is-disabled {
+    span.el-checkbox__label {
+      color: eleVar('checkbox', 'disabled-color');
+    }
+
+    .el-checkbox__input .el-checkbox__inner {
+      background: eleVar('checkbox', 'disabled-bg');
+      border: eleVar('checkbox', 'disabled-border');
+
+      &::after {
+        border-color: eleVar('checkbox', 'disabled-color');
+      }
+    }
+  }
+
+  &.el-checkbox--small {
+    .el-checkbox__label {
+      font-size: eleVar('checkbox', 'sm-font-size');
+      line-height: eleVar('checkbox', 'sm-size');
+    }
+
+    .el-checkbox__inner {
+      width: eleVar('checkbox', 'sm-size');
+      height: eleVar('checkbox', 'sm-size');
+      border-radius: eleVar('checkbox', 'sm-radius');
+
+      &::after {
+        left: eleVar('checkbox', 'sm-icon-left');
+        width: eleVar('checkbox', 'sm-icon-width');
+        height: eleVar('checkbox', 'sm-icon-height');
+      }
+    }
+
+    .el-checkbox__input.is-indeterminate .el-checkbox__inner::before {
+      top: 50%;
+    }
+  }
+
+  &.el-checkbox--large {
+    .el-checkbox__label {
+      font-size: eleVar('checkbox', 'lg-font-size');
+      line-height: eleVar('checkbox', 'lg-size');
+    }
+
+    .el-checkbox__inner {
+      width: eleVar('checkbox', 'lg-size');
+      height: eleVar('checkbox', 'lg-size');
+      border-radius: eleVar('checkbox', 'lg-radius');
+
+      &::after {
+        left: eleVar('checkbox', 'lg-icon-left');
+        width: eleVar('checkbox', 'lg-icon-width');
+        height: eleVar('checkbox', 'lg-icon-height');
+      }
+    }
+  }
+}
+
+body .el-checkbox,
+body .el-checkbox-group > .el-checkbox {
+  margin-right: eleVar('checkbox', 'space');
+}
+
+.el-checkbox-group > .el-checkbox:last-child {
+  margin-right: 0;
+}

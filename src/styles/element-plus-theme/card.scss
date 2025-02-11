@@ -1,0 +1,12 @@
+@use './util.scss' as *;
+
+body .el-card {
+  background: elVar('bg-color');
+  border-radius: 8px;
+
+  .el-card__header {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 16px 20px;
+  }
+}

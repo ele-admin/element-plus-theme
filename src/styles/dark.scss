@@ -1,0 +1,101 @@
+@use './element-plus-theme/util.scss' as *;
+
+@forward 'element-plus/theme-chalk/src/dark/var.scss' with (
+  $colors: (
+    'primary': (
+      'base': #1668dc
+    ),
+    'success': (
+      'base': #49aa19
+    ),
+    'warning': (
+      'base': #d89614
+    ),
+    'danger': (
+      'base': #dc4446
+    ),
+    'error': (
+      'base': #dc4446
+    ),
+    'info': (
+      'base': #8b8b8b
+    )
+  ),
+  $text-color: (
+    'primary': rgba(255, 255, 255, 0.9),
+    'regular': rgba(255, 255, 255, 0.85),
+    'secondary': rgba(255, 255, 255, 0.4),
+    'placeholder': rgba(255, 255, 255, 0.3),
+    'disabled': rgba(255, 255, 255, 0.28)
+  ),
+  $border-color: (
+    '': #424242,
+    'light': #303030,
+    'lighter': #303030,
+    'extra-light': #282828,
+    'dark': #303030,
+    'darker': #424242
+  ),
+  $fill-color: (
+    '': #303030,
+    'light': #282828,
+    'lighter': #1d1d1d,
+    'extra-light': #1a1a1a,
+    'dark': #282828,
+    'darker': #303030
+  ),
+  $bg-color: (
+    '': #141414,
+    'page': #080808,
+    'overlay': #1f1f1f
+  ),
+  $box-shadow: (
+    '': (
+      0px 0px 12px rgba(0, 0, 0, 0.8)
+    ),
+    'light': (
+      0 3px 6px -4px rgba(0, 0, 0, 0.48),
+      0 6px 16px 0 rgba(0, 0, 0, 0.32),
+      0 9px 28px 8px rgba(0, 0, 0, 0.2)
+    ),
+    'lighter': (
+      0 1px 2px 0 rgba(0, 0, 0, 0.03),
+      0 1px 6px -1px rgba(0, 0, 0, 0.02),
+      0 2px 4px 0 rgba(0, 0, 0, 0.02)
+    ),
+    'dark': (
+      0 3px 6px -4px rgba(0, 0, 0, 0.48),
+      0 6px 16px 0 rgba(0, 0, 0, 0.32),
+      0 9px 28px 8px rgba(0, 0, 0, 0.2)
+    )
+  ),
+  $mask-color: (
+    '': rgba(20, 20, 20, 0.8),
+    'extra-light': rgba(20, 20, 20, 0.6)
+  )
+);
+@use 'element-plus/theme-chalk/src/dark/css-vars.scss';
+
+html.dark {
+  .el-table {
+    #{elVarName('table','icon-hover-bg')}: rgba(255, 255, 255, 0.12);
+    #{elVarName('table','fixed-left-shadow')}: inset 10px 0 10px -10px
+      rgba(0, 0, 0, 0.88);
+    #{elVarName('table','fixed-right-shadow')}: inset -10px 0 10px -10px
+      rgba(0, 0, 0, 0.88);
+  }
+
+  .el-popper {
+    #{elVarName('popper','arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+  }
+
+  .el-popper.is-dark {
+    #{elVarName('tooltip','bg')}: #383838;
+    #{elVarName('tooltip','shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+    #{elVarName('tooltip','arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+  }
+
+  .el-tag {
+    #{elVarName('tag','info-bg')}: elVar('color-info', 'light-8');
+  }
+}

@@ -1,0 +1,31 @@
+@use './var.scss' as *;
+@use './util.scss' as *;
+
+.el-autocomplete__popper {
+  @include set-ele-var('autocomplete', $ele);
+
+  .el-autocomplete-suggestion {
+    background: inherit;
+    border-radius: inherit;
+  }
+
+  .el-autocomplete-suggestion__wrap {
+    padding: 0;
+  }
+
+  .el-autocomplete-suggestion__list {
+    padding: eleVar('autocomplete', 'padding');
+  }
+
+  .el-autocomplete-suggestion li {
+    height: eleVar('autocomplete', 'item-height');
+    line-height: eleVar('autocomplete', 'item-height');
+    padding: eleVar('autocomplete', 'item-padding');
+    border-radius: eleVar('autocomplete', 'item-radius');
+    transition: (color $transition-base, background-color $transition-base);
+
+    & + li {
+      margin-top: eleVar('autocomplete', 'item-margin');
+    }
+  }
+}
