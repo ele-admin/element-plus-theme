@@ -31,3 +31,26 @@ export default {
 ## 效果预览
 
 ![](https://cdn.eleadmin.com/20200610/pEnvAT1.png)
+
+## 文件说明
+
+```bash
+|- element-plus-theme
+|    |- autocomplete.scss      # 对 el-autocomplete 组件样式优化
+|    |- backtop.scss           # 对 el-backtop 组件样式优化
+|    |- card.scss              # 对 el-card 组件样式优化
+|    |- cascader.scss          # 对 el-cascader 组件样式优化
+|    |- checkbox.scss          # 对 el-checkbox 组件样式优化
+|    |- date-picker.scss       # 对 el-date-picker 组件样式优化
+|    |- descriptions.scss      # 对 el-descriptions 组件样式优化
+|    |- input.scss             # 对 el-input 组件样式优化
+|    |- message-box.scss       # 对 ElMessageBox 样式优化
+|    |- notification.scss      # 对 ElNotification 样式优化
+|    |- popper.scss            # 对 el-popover 和 el-tooltip 组件样式优化
+|    |- radio.scss             # 对 el-radio 组件样式优化
+|    |- select.scss            # 对 el-select 组件样式优化
+|    |- table.scss             # 对 el-table 组件样式优化
+|    |- tag.scss               # 对 el-tag 组件样式优化
+|    |- tree-select.scss       # 对 el-tree-select 组件样式优化
+|    |- tree.scss              # 对 el-tree 组件样式优化
+```
