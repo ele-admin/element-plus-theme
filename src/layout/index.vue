@@ -155,6 +155,7 @@
       (item) => item.color === themeColor.value
     );
     changeThemeColor(themeItem);
+    cacheTheme(isDark);
   };
 
   const updateDarkMode = (isDark) => {
@@ -336,5 +337,43 @@
       ].join('');
       document.head.appendChild(elem);
     }
+    cacheTheme(void 0, themeColor.value);
   };
+
+  const themeCacheKey = 'themeConfig';
+
+  const cacheTheme = (isDark, color) => {
+    try {
+      const cacheTheme = JSON.parse(
+        localStorage.getItem(themeCacheKey) || '{}'
+      );
+      if (isDark != null) {
+        cacheTheme.dark = isDark;
+      }
+      if (color != null) {
+        cacheTheme.color = color;
+      }
+      localStorage.setItem(themeCacheKey, JSON.stringify(cacheTheme));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  try {
+    const cacheTheme = JSON.parse(localStorage.getItem(themeCacheKey) || '{}');
+    if (cacheTheme.dark) {
+      if (cacheTheme.color) {
+        themeColor.value = cacheTheme.color;
+      }
+      changeDarkTheme(true);
+    } else if (cacheTheme.color) {
+      themeColor.value = cacheTheme.color;
+      const themeItem = themeColors.value.find(
+        (item) => item.color === themeColor.value
+      );
+      changeThemeColor(themeItem);
+    }
+  } catch (e) {
+    console.error(e);
+  }
 </script>
