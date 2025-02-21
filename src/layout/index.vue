@@ -24,6 +24,7 @@
       >
         <img
           src="https://gitee.com/ele-admin/element-plus-theme/badge/star.svg?theme=dark"
+          style="width: 75px"
         />
       </a>
     </div>
