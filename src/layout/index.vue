@@ -29,38 +29,40 @@
       </a>
     </div>
     <div class="app-body">
-      <div class="app-sidebar">
-        <div class="app-sidebar-menus">
-          <router-link
-            v-for="item in menus"
-            :key="item.path"
-            :to="item.path"
-            :class="[
-              'app-menu-item',
-              { 'is-active': route.path === item.path }
-            ]"
-          >
-            <el-icon>
-              <component :is="item.icon" />
-            </el-icon>
-            <span>{{ item.title }}</span>
-          </router-link>
-        </div>
-        <div class="app-sidebar-label">主题色</div>
-        <div class="app-theme-colors">
-          <div
-            v-for="item in themeColors"
-            :key="item.color"
-            :class="[
-              'app-theme-color-item',
-              { 'is-active': themeColor === item.color }
-            ]"
-            :style="{ background: item.color }"
-            @click="changeThemeColor(item)"
-          >
-            <el-icon v-if="themeColor === item.color">
-              <IconSelect style="transform: translateY(1px)" />
-            </el-icon>
+      <div class="app-sidebar-wrapper">
+        <div class="app-sidebar">
+          <div class="app-sidebar-menus">
+            <router-link
+              v-for="item in menus"
+              :key="item.path"
+              :to="item.path"
+              :class="[
+                'app-menu-item',
+                { 'is-active': route.path === item.path }
+              ]"
+            >
+              <el-icon>
+                <component :is="item.icon" />
+              </el-icon>
+              <span>{{ item.title }}</span>
+            </router-link>
+          </div>
+          <div class="app-sidebar-label">主题色</div>
+          <div class="app-theme-colors">
+            <div
+              v-for="item in themeColors"
+              :key="item.color"
+              :class="[
+                'app-theme-color-item',
+                { 'is-active': themeColor === item.color }
+              ]"
+              :style="{ background: item.color }"
+              @click="changeThemeColor(item)"
+            >
+              <el-icon v-if="themeColor === item.color">
+                <IconSelect style="transform: translateY(1px)" />
+              </el-icon>
+            </div>
           </div>
         </div>
       </div>
