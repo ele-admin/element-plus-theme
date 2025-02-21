@@ -17,6 +17,15 @@
           @update:modelValue="updateDarkMode"
         />
       </div>
+      <a
+        style="display: flex; align-items: center; margin: 2px 0 0 20px"
+        href="https://gitee.com/ele-admin/element-plus-theme"
+        target="_blank"
+      >
+        <img
+          src="https://gitee.com/ele-admin/element-plus-theme/badge/star.svg?theme=dark"
+        />
+      </a>
     </div>
     <div class="app-body">
       <div class="app-sidebar">
