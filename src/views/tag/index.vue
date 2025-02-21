@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card header="标签组件" shadow="never" style="border: none">
+    <el-card header="标签组件" shadow="always" style="border: none">
       <div style="display: flex; gap: 16px">
         <el-tag type="primary" closable disable-transitions>标签一</el-tag>
         <el-tag type="success" closable disable-transitions>标签二</el-tag>
@@ -52,7 +52,7 @@
     </el-card>
     <el-card
       header="圆形标签"
-      shadow="never"
+      shadow="always"
       style="border: none; margin-top: 16px"
     >
       <div style="display: flex; gap: 16px">

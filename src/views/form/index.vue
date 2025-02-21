@@ -1,5 +1,5 @@
 <template>
-  <el-card header="表单校验" shadow="never" style="border: none">
+  <el-card header="表单校验" shadow="always" style="border: none">
     <el-form
       status-icon
       ref="formRef"

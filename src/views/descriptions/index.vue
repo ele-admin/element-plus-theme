@@ -1,5 +1,5 @@
 <template>
-  <el-card header="描述列表组件" shadow="never" style="border: none">
+  <el-card header="描述列表组件" shadow="always" style="border: none">
     <el-descriptions :border="true" :column="2" :label-width="120" size="large">
       <el-descriptions-item label="操作人&nbsp;&nbsp;" label-align="right">
         <div>管理员(admin)</div>

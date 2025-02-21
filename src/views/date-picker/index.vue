@@ -1,5 +1,5 @@
 <template>
-  <el-card header="日期时间选择组件" shadow="never" style="border: none">
+  <el-card header="日期时间选择组件" shadow="always" style="border: none">
     <el-form label-width="100px">
       <el-row :gutter="32">
         <el-col :span="12">

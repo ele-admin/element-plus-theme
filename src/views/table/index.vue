@@ -1,5 +1,5 @@
 <template>
-  <el-card header="表格组件" shadow="never" style="border: none">
+  <el-card header="表格组件" shadow="always" style="border: none">
     <el-table
       :data="tableData"
       :border="true"

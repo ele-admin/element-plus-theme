@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-card header="消息弹窗" shadow="never" style="border: none">
+    <el-card header="消息弹窗" shadow="always" style="border: none">
       <div>
         <el-button @click="openConfirm">确认弹窗</el-button>
         <el-button @click="openPrompt">输入弹窗</el-button>
@@ -15,7 +15,7 @@
     </el-card>
     <el-card
       header="消息通知"
-      shadow="never"
+      shadow="always"
       style="border: none; margin-top: 16px"
     >
       <div>

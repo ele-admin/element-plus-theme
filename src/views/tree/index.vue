@@ -1,5 +1,5 @@
 <template>
-  <el-card header="树组件" shadow="never" style="border: none">
+  <el-card header="树组件" shadow="always" style="border: none">
     <el-tree
       show-checkbox
       :data="menuData"
