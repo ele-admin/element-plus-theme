@@ -23,6 +23,7 @@ body {
     display: flex;
     align-items: center;
     background: getCssVar('color-primary');
+    box-shadow: getCssVar('box-shadow', 'lighter');
     box-sizing: border-box;
     position: sticky;
     top: 0;
