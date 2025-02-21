@@ -129,6 +129,8 @@ body {
     height: calc(100vh - 58px);
     padding: 16px 0 16px 16px;
     box-sizing: border-box;
+    position: sticky;
+    top: 58px;
   }
 
   .app-sidebar {
@@ -141,8 +143,6 @@ body {
     background: getCssVar('bg-color');
     box-shadow: getCssVar('box-shadow', 'lighter');
     box-sizing: border-box;
-    position: sticky;
-    top: 74px;
 
     .app-sidebar-menus {
       flex: 1;
