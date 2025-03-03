@@ -180,6 +180,9 @@
     form.publicType = 1;
     nextTick(() => {
       formRef.value?.clearValidate?.();
+      nextTick(() => {
+        formRef.value?.clearValidate?.();
+      });
     });
   };
 </script>
