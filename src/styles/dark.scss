@@ -3,7 +3,7 @@
 @forward 'element-plus/theme-chalk/src/dark/var.scss' with (
   $colors: (
     'primary': (
-      'base': #1668dc
+      'base': #0052d9
     ),
     'success': (
       'base': #49aa19
@@ -78,24 +78,26 @@
 
 html.dark {
   .el-table {
-    #{elVarName('table','icon-hover-bg')}: rgba(255, 255, 255, 0.12);
-    #{elVarName('table','fixed-left-shadow')}: inset 10px 0 10px -10px
-      rgba(0, 0, 0, 0.88);
-    #{elVarName('table','fixed-right-shadow')}: inset -10px 0 10px -10px
-      rgba(0, 0, 0, 0.88);
+    #{eleVarName('table', 'icon-hover-bg')}: rgba(255, 255, 255, 0.12);
+    #{eleVarName('table', 'fixed-left-shadow')}: (
+      inset 10px 0 10px -10px rgba(0, 0, 0, 0.88)
+    );
+    #{eleVarName('table', 'fixed-right-shadow')}: (
+      inset -10px 0 10px -10px rgba(0, 0, 0, 0.88)
+    );
   }
 
   .el-popper {
-    #{elVarName('popper','arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+    #{eleVarName('popper', 'arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
   }
 
   .el-popper.is-dark {
-    #{elVarName('tooltip','bg')}: #383838;
-    #{elVarName('tooltip','shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
-    #{elVarName('tooltip','arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+    #{eleVarName('tooltip', 'bg')}: #383838;
+    #{eleVarName('tooltip', 'shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
+    #{eleVarName('tooltip', 'arrow-shadow')}: 0 0 8px 0 rgba(0, 0, 0, 0.28);
   }
 
   .el-tag {
-    #{elVarName('tag','info-bg')}: elVar('color-info', 'light-8');
+    #{eleVarName('tag', 'info-bg')}: elVar('color-info', 'light-8');
   }
 }
