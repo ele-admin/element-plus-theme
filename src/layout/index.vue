@@ -206,7 +206,7 @@
   const themeColor = ref('#1677ff');
 
   const themeColors = ref([
-    { color: '#1677ff' },
+    { color: '#2f54eb' },
     {
       color: '#13C2C2',
       colors: [
@@ -362,15 +362,20 @@
     }
   };
 
+  const getCacheThemeColor = (color) => {
+    const themeItem = themeColors.value.find((item) => item.color === color);
+    return themeItem?.color || themeColors.value[0]?.color;
+  };
+
   try {
     const cacheTheme = JSON.parse(localStorage.getItem(themeCacheKey) || '{}');
     if (cacheTheme.dark) {
       if (cacheTheme.color) {
-        themeColor.value = cacheTheme.color;
+        themeColor.value = getCacheThemeColor(cacheTheme.color);
       }
       changeDarkTheme(true);
     } else if (cacheTheme.color) {
-      themeColor.value = cacheTheme.color;
+      themeColor.value = getCacheThemeColor(cacheTheme.color);
       const themeItem = themeColors.value.find(
         (item) => item.color === themeColor.value
       );
