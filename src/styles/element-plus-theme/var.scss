@@ -11,6 +11,10 @@ $radius-large: 8px !default;
 $ele: () !default;
 $ele: map.deep-merge(
   (
+    'card': (
+      'bg': elVar('bg-color'),
+      'shadow': elVar('box-shadow', 'lighter')
+    ),
     'popper': (
       'bg': elVar('bg-color', 'overlay'),
       'border': none,
